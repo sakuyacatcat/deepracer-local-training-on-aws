@@ -16,7 +16,7 @@ resource "aws_instance" "deepracer_instance" {
     market_type = "spot"
 
     spot_options {
-      max_price                      = "0.10"
+      max_price                      = "0.2"
       spot_instance_type             = "persistent"
       instance_interruption_behavior = "stop"
     }
