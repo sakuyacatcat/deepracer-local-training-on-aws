@@ -1,6 +1,23 @@
 ENVIRONMENT ?= environments/dev
+TERRAFORM_VERSION ?= 1.5.0
 
-# コマンドの定義
+requirement-install:
+	@if ! command -v tfenv >/dev/null 2>&1; then \
+		echo "tfenvがインストールされていません。インストールを開始します。"; \
+		git clone https://github.com/tfutils/tfenv.git ~/.tfenv; \
+		echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bash_profile; \
+		source ~/.bash_profile; \
+		echo "tfenvをインストールしました。"; \
+	else \
+		echo "tfenvは既にインストールされています。"; \
+	fi
+
+install: requirement-install
+	@echo "Terraformバージョン $(TERRAFORM_VERSION) をインストール中..."
+	tfenv install $(TERRAFORM_VERSION)
+	tfenv use $(TERRAFORM_VERSION)
+	@echo "Terraformバージョン $(TERRAFORM_VERSION) の使用を開始しました。"
+
 init:
 	@echo "Terraformを初期化中..."
 	cd $(ENVIRONMENT) && terraform init
@@ -18,19 +35,15 @@ destroy:
 	cd $(ENVIRONMENT) && terraform destroy -auto-approve
 
 fmt:
-	@echo "Terraformコードのフォーマットをチェック中..."
 	terraform fmt -check
 
 fmt-fix:
-	@echo "Terraformコードをフォーマット中..."
 	terraform fmt
 
 validate:
-	@echo "Terraform設定の検証中..."
 	cd $(ENVIRONMENT) && terraform validate
 
 output:
-	@echo "Terraformの出力を表示中..."
 	cd $(ENVIRONMENT) && terraform output
 
-.PHONY: init plan apply destroy fmt fmt-fix validate output
+.PHONY: requirement-install install init plan apply destroy fmt fmt-fix validate output
