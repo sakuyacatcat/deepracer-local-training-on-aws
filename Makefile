@@ -22,28 +22,28 @@ init:
 	@echo "Terraformを初期化中..."
 	cd $(ENVIRONMENT) && terraform init
 
-plan:
+plan: init
 	@echo "Terraformプランを確認中..."
 	cd $(ENVIRONMENT) && terraform plan
 
-apply:
+apply: init
 	@echo "Terraformを適用中..."
 	cd $(ENVIRONMENT) && terraform apply -auto-approve
 
-destroy:
+destroy: init
 	@echo "Terraformによるリソースを削除中..."
 	cd $(ENVIRONMENT) && terraform destroy -auto-approve
 
-fmt:
+fmt: init
 	terraform fmt -check
 
-fmt-fix:
+fmt-fix: init
 	terraform fmt
 
-validate:
+validate: init
 	cd $(ENVIRONMENT) && terraform validate
 
-output:
+output: init
 	cd $(ENVIRONMENT) && terraform output
 
 .PHONY: requirement-install install init plan apply destroy fmt fmt-fix validate output
