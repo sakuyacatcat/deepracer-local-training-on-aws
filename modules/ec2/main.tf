@@ -29,5 +29,14 @@ resource "aws_instance" "deepracer_instance" {
 
   tags = var.tags
 
-  user_data = file("${path.module}/user_data.sh")
+  user_data = <<-EOF
+              #!/bin/bash
+              git clone https://github.com/aws-deepracer-community/deepracer-for-cloud.git /home/ubuntu/deepracer-for-cloud
+              echo "DR_LOCAL_S3_PROFILE=default" > /home/ubuntu/deepracer-for-cloud/system.env
+              echo "DR_LOCAL_S3_BUCKET=${aws_s3_bucket.deepracer_bucket.bucket}" >> /home/ubuntu/deepracer-for-cloud/system.env
+              echo "DR_UPLOAD_S3_PROFILE=default" >> /home/ubuntu/deepracer-for-cloud/system.env
+              echo "DR_UPLOAD_S3_BUCKET=${aws_s3_bucket.deepracer_bucket.bucket}" >> /home/ubuntu/deepracer-for-cloud/system.env
+
+              cd /home/ubuntu/deepracer-for-cloud && ./bin/prepare.sh
+              EOF
 }
