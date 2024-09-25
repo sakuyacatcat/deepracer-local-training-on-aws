@@ -1,16 +1,30 @@
 resource "aws_instance" "deepracer_instance" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  subnet_id     = var.subnet_id
-
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  subnet_id                   = var.subnet_id
   associate_public_ip_address = true
 
-  security_groups = [var.security_group]
-
+  security_groups      = [var.security_group]
   iam_instance_profile = var.iam_instance_profile
 
   root_block_device {
     volume_size = var.volume_size
+  }
+
+  instance_market_options {
+    market_type = "spot"
+
+    spot_options {
+      max_price                      = "0.10"
+      spot_instance_type             = "persistent"
+      instance_interruption_behavior = "stop"
+    }
+  }
+
+  metadata_options {
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+    http_endpoint               = "enabled"
   }
 
   tags = var.tags
