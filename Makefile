@@ -14,6 +14,7 @@ requirement-install:
 
 install: requirement-install
 	@echo "Terraformバージョン $(TERRAFORM_VERSION) をインストール中..."
+	apt install -y unzip
 	tfenv install $(TERRAFORM_VERSION)
 	tfenv use $(TERRAFORM_VERSION)
 	@echo "Terraformバージョン $(TERRAFORM_VERSION) の使用を開始しました。"
