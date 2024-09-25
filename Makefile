@@ -5,7 +5,7 @@ requirement-install:
 	@if ! command -v tfenv >/dev/null 2>&1; then \
 		echo "tfenvがインストールされていません。インストールを開始します。"; \
 		git clone https://github.com/tfutils/tfenv.git ~/.tfenv; \
-		echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bash_profile; \
+		echo 'export PATH="$${HOME}/.tfenv/bin:$${PATH}"' >> ~/.bash_profile; \
 		source ~/.bash_profile; \
 		echo "tfenvをインストールしました。"; \
 	else \
