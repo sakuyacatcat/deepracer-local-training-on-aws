@@ -6,7 +6,6 @@ resource "aws_instance" "deepracer_instance" {
 
   security_groups      = [var.security_group]
   iam_instance_profile = var.iam_instance_profile
-  key_name             = "my-key-pair"
 
   root_block_device {
     volume_size = var.volume_size
