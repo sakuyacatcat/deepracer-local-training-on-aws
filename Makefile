@@ -29,11 +29,11 @@ plan: init
 
 apply: init
 	@echo "Terraformを適用中..."
-	cd $(ENVIRONMENT) && terraform apply -auto-approve
+	cd $(ENVIRONMENT) && terraform apply
 
 destroy: init
 	@echo "Terraformによるリソースを削除中..."
-	cd $(ENVIRONMENT) && terraform destroy -auto-approve
+	cd $(ENVIRONMENT) && terraform destroy
 
 fmt: init
 	terraform fmt -check
