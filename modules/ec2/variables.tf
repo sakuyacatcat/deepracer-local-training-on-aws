@@ -29,6 +29,11 @@ variable "volume_size" {
   default     = 150
 }
 
+variable "s3_bucket_name" {
+  description = "The name of the S3 bucket"
+  type        = string
+}
+
 variable "tags" {
   description = "Tags to apply to the instance"
   type        = map(string)

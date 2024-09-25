@@ -27,6 +27,7 @@ module "ec2" {
   security_group       = module.network.security_group_id
   iam_instance_profile = module.iam.iam_instance_profile
   volume_size          = 150
+  s3_bucket_name       = module.s3.s3_bucket_name # S3のバケット名をモジュールに渡す
 
   tags = {
     Name = "dev-deepracer-instance"
