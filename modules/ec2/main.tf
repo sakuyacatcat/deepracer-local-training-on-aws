@@ -36,8 +36,12 @@ resource "aws_instance" "deepracer_instance" {
               echo "DR_LOCAL_S3_BUCKET=${var.s3_bucket_name}" >> /home/ubuntu/deepracer-for-cloud/system.env
               echo "DR_UPLOAD_S3_PROFILE=default" >> /home/ubuntu/deepracer-for-cloud/system.env
               echo "DR_UPLOAD_S3_BUCKET=${var.s3_bucket_name}" >> /home/ubuntu/deepracer-for-cloud/system.env
+              echo "DR_SIMAPP_SOURCE=awsdeepracercommunity/deepracer-simapp" >> /home/ubuntu/deepracer-for-cloud/system.env
+              echo "DR_SIMAPP_VERSION=5.3.1-gpu" >> /home/ubuntu/deepracer-for-cloud/system.env
 
               echo "DR_UPLOAD_S3_PREFIX=dev" >> /home/ubuntu/deepracer-for-cloud/run.env
+
+              docker swarm init
 
               cd /home/ubuntu/deepracer-for-cloud && ./bin/prepare.sh
               EOF
