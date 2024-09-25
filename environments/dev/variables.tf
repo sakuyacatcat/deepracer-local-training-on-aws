@@ -20,8 +20,3 @@ variable "bucket_name" {
   type        = string
   default     = "dev-deepracer-bucket"
 }
-
-variable "key_name" {
-  description = "The name of the EC2 key pair"
-  type        = string
-}
