@@ -37,6 +37,8 @@ resource "aws_instance" "deepracer_instance" {
               echo "DR_UPLOAD_S3_PROFILE=default" >> /home/ubuntu/deepracer-for-cloud/system.env
               echo "DR_UPLOAD_S3_BUCKET=${var.s3_bucket_name}" >> /home/ubuntu/deepracer-for-cloud/system.env
 
+              echo "DR_UPLOAD_S3_PREFIX=dev" >> /home/ubuntu/deepracer-for-cloud/run.env
+
               cd /home/ubuntu/deepracer-for-cloud && ./bin/prepare.sh
               EOF
 }
